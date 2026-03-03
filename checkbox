@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback Survey</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #5c67f2;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        h1 { margin-bottom: 10px; color: #222; }
+        p { color: #666; }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Text & Select Inputs */
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box; /* Ensures padding doesn't break width */
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(92, 103, 242, 0.1);
+        }
+
+        /* Choice Layouts (Radio/Checkboxes) */
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #fcfcfc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .inline-label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .inline-label input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Rating Scale Style */
+        .rating-row {
+            display: flex;
+            justify-content: space-between;
+            max-width: 400px;
+            margin-top: 10px;
+        }
+
+        .rating-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Submit Button */
+        #submit {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.1s, background 0.3s;
+        }
+
+        #submit:hover {
+            background-color: #4a54e1;
+        }
+
+        #submit:active {
+            transform: scale(0.98);
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .rating-row { flex-wrap: wrap; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 id="title">Survey Form</h1>
+        <p id="description">Please fill out the details below to help us improve.</p>
+    </header>
+
+    <form id="survey-form">
+        <div class="form-group">
+            <label id="name-label" for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+            <label id="email-label" for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="dropdown">Which feature do you use most?</label>
+            <select id="dropdown" required>
+                <option disabled selected value="">Select an option</option>
+                <option value="dashboard">Analytics Dashboard</option>
+                <option value="mobile-app">Mobile Application</option>
+                <option value="cloud-sync">Cloud Sync</option>
+                <option value="api">Developer API</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Would you recommend this service to a friend?</label>
+            <div class="choices-container">
+                <label class="inline-label"><input type="radio" name="recommend" value="yes" checked> Definitely</label>
+                <label class="inline-label"><input type="radio" name="recommend" value="maybe"> Maybe</label>
+                <label class="inline-label"><input type="radio" name="recommend" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Rate your overall experience (1 = Poor, 5 = Excellent):</label>
+            <div class="rating-row">
+                <div class="rating-item"><input type="radio" name="rating" value="1"> 1</div>
+                <div class="rating-item"><input type="radio" name="rating" value="2"> 2</div>
+                <div class="rating-item"><input type="radio" name="rating" value="3"> 3</div>
+                <div class="rating-item"><input type="radio" name="rating" value="4"> 4</div>
+                <div class="rating-item"><input type="radio" name="rating" value="5"> 5</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>What improvements would you like to see? (Check all that apply)</label>
+            <div class="choices-container">
+                <label class="inline-label"><input type="checkbox" name="improve" value="ui"> Better UI Design</label>
+                <label class="inline-label"><input type="checkbox" name="improve" value="docs"> More Documentation</label>
+                <label class="inline-label"><input type="checkbox" name="improve" value="speed"> Faster Loading Times</label>
+                <label class="inline-label"><input type="checkbox" name="improve" value="offline"> Offline Mode</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="comments">Any additional comments or feedback?</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Type your message here..."></textarea>
+        </div>
+
+        <button type="submit" id="submit">Submit Your Feedback</button>
+    </form>
+</div>
+
+</body>
+</html>
